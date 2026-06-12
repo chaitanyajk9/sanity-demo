@@ -1,0 +1,90 @@
+import { defineArrayMember, defineField, defineType } from "sanity";
+
+export const pageType = defineType({
+  name: "page",
+  title: "Page",
+  type: "document",
+  fields: [
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: {
+        source: "title",
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "defaultHeading",
+      title: "Default heading",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "defaultDescription",
+      title: "Default description",
+      type: "text",
+      rows: 4,
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "countryContent",
+      title: "Country content",
+      type: "array",
+      of: [
+        defineArrayMember({
+          name: "countryContentItem",
+          title: "Country content item",
+          type: "object",
+          fields: [
+            defineField({
+              name: "countryCode",
+              title: "Country code",
+              type: "string",
+              options: {
+                list: [
+                  { title: "India", value: "IN" },
+                  { title: "United States", value: "US" },
+                  { title: "Great Britain", value: "GB" },
+                  { title: "Australia", value: "AU" },
+                ],
+              },
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "heading",
+              title: "Heading",
+              type: "string",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "description",
+              title: "Description",
+              type: "text",
+              rows: 4,
+              validation: (rule) => rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: "countryCode",
+              subtitle: "heading",
+            },
+            prepare(selection) {
+              return {
+                title: selection.title,
+                subtitle: selection.subtitle,
+              };
+            },
+          },
+        }),
+      ],
+    }),
+  ],
+});
