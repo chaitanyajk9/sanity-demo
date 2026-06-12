@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { ImperialLensSpecificationsInput } from "../components/ImperialLensSpecificationsInput";
 
 export const pageType = defineType({
   name: "page",
@@ -99,6 +100,9 @@ export const pageType = defineType({
       type: "array",
       of: [{ type: "imperialLensSpecification" }],
       description: "Imported from the AP3 imperial German specification CSV.",
+      components: {
+        input: ImperialLensSpecificationsInput,
+      },
     }),
   ],
 });
