@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo, useState, type ChangeEvent } from "react";
 import {
   Box,
@@ -18,6 +20,7 @@ import {
 import { set, type ArrayOfObjectsInputProps } from "sanity";
 import { csvImporterTargets } from "../tools/csvImporter/config";
 import { parseCsvFile } from "../tools/csvImporter/parser";
+import type { CsvImporterTarget } from "../tools/csvImporter/types";
 
 type ImperialLensSpecificationValue = {
   _key: string;
@@ -34,19 +37,24 @@ type ImperialLensSpecificationValue = {
   filtergewinde?: string;
 };
 
-const target = csvImporterTargets.find(
-  (candidate) => candidate.id === "pageImperialLensSpecificationsDe",
-);
-
-if (!target) {
-  throw new Error(
-    "Missing CSV importer target configuration for imperial lens specifications.",
+function getImperialLensTarget(): CsvImporterTarget {
+  const target = csvImporterTargets.find(
+    (candidate) => candidate.id === "pageImperialLensSpecificationsDe",
   );
+
+  if (!target) {
+    throw new Error(
+      "Missing CSV importer target configuration for imperial lens specifications.",
+    );
+  }
+
+  return target;
 }
 
 export function ImperialLensSpecificationsInput(
-  props: ArrayOfObjectsInputProps<ImperialLensSpecificationValue>,
+  props: ArrayOfObjectsInputProps,
 ) {
+  const target = useMemo(() => getImperialLensTarget(), []);
   const toast = useToast();
   const [selectedFileName, setSelectedFileName] = useState("");
   const [parsing, setParsing] = useState(false);

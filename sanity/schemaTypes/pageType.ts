@@ -101,7 +101,7 @@ export const pageType = defineType({
       of: [{ type: "imperialLensSpecification" }],
       description: "Imported from the AP3 imperial German specification CSV.",
       components: {
-        input: ImperialLensSpecificationsInput,
+        input: ImperialLensSpecificationsInput as never,
       },
     }),
   ],
