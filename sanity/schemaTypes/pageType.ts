@@ -86,5 +86,19 @@ export const pageType = defineType({
         }),
       ],
     }),
+    defineField({
+      name: "specifications",
+      title: "Specifications",
+      type: "array",
+      of: [{ type: "specification" }],
+      description: "Example import target used by the CSV Importer tool.",
+    }),
+    defineField({
+      name: "imperialLensSpecificationsDe",
+      title: "Imperial Lens Specifications DE",
+      type: "array",
+      of: [{ type: "imperialLensSpecification" }],
+      description: "Imported from the AP3 imperial German specification CSV.",
+    }),
   ],
 });

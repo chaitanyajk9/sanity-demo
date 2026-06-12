@@ -8,6 +8,7 @@ Next.js 15 App Router demo that pulls homepage content from Sanity and resolves 
 - `countryContent` array with `countryCode`, `heading`, and `description`
 - `/api/country` endpoint backed by the Vercel `x-vercel-ip-country` header
 - Default fallback content when no country-specific entry matches
+- Custom Studio tool: `CSV Importer`
 - Tailwind CSS UI
 - Sanity Studio mounted at `/studio`
 
@@ -45,6 +46,36 @@ Create one `Page` document in Sanity with:
 - `defaultHeading`
 - `defaultDescription`
 - `countryContent` items for `IN`, `US`, `GB`, and `AU` as needed
+- `specifications` if you want to import specification rows from CSV
+
+## CSV Importer
+
+Open `/studio`, then use the `CSV Importer` tool from the Studio navigation.
+
+Current production mapping:
+
+- Document type: `Page`
+- Target array field: `specifications`
+- Item type: `specification`
+
+Expected CSV format:
+
+```csv
+title,value,description
+RAM,16GB,Memory
+Storage,512GB SSD,Disk
+CPU,Ryzen 7,Processor
+```
+
+The tool:
+
+- lets you select a target document
+- parses CSV with PapaParse
+- validates required columns
+- ignores empty rows
+- warns on duplicate rows
+- previews parsed rows
+- replaces the existing `specifications` array on import
 
 ## Country detection flow
 
